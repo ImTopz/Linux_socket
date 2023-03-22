@@ -10,7 +10,7 @@
 
 char filename[100];
 char buff[1024];
-char buff2[10] = "##########";
+char buff2[10] = "\r\n";
 
 int TransFile(int fd)
 {
@@ -30,7 +30,7 @@ int TransFile(int fd)
     int tmp_buff = 0;
     while( (tmp_buff = fread(buff,sizeof(char),1024,fp)) > 0 )
     {
-        send(fd,buff,tmp_buff,0);
+        send(fd,buff,sizeof(buff),0);
     }
      send(fd,buff2,sizeof(buff2),0);
     

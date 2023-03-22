@@ -11,7 +11,7 @@
 
 char filename[100];
 char buff[1024];
-char buff2[1];
+
 
 int InitTCP()
 {
@@ -64,16 +64,22 @@ int InitAccp(int fd){
     int temp_buffer = 0;
         while((temp_buffer = recv(conn,buff,sizeof(buff),0))>0 ){
             int cnt = 0;
-            for(int i =0;i<strlen(buff);i++)
+            for(int i =0;i<1023;i++)
             {
-             if(buff[i]=='#')
-             {
-                 cnt ++;
-             }
+                if(buff[i] == '\r' && buff[i+1] == '\n')
+                {
+                    cnt = 1;
+                }
+                
             }
-            if(cnt >= 5)
+            
+            if(cnt == 1)
+            {
                 break;
+            }
+
             fwrite(buff, sizeof(char), temp_buffer, fp);
+          
         }
     printf("传送完毕！\n");
     fclose(fp);
