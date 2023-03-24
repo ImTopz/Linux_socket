@@ -6,12 +6,12 @@
 #include <string.h>
 
 
-#define SERVER_PORT 1234
+#define SERVER_PORT 12344
 #define BUFF_LEN 512
 
 char filename[100];
 char buff[1024];
-
+char buff_end[1] = "\0";
 
 int InitTCP()
 {
@@ -69,16 +69,19 @@ int InitAccp(int fd){
                 if(buff[i] == '\r' && buff[i+1] == '\n')
                 {
                     cnt = 1;
+                    
                 }
                 
             }
             
             if(cnt == 1)
             {
+                fwrite('\0', sizeof(char), temp_buffer, fp);
                 break;
             }
 
             fwrite(buff, sizeof(char), temp_buffer, fp);
+
           
         }
     printf("传送完毕！\n");

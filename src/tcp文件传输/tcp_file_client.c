@@ -6,7 +6,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-#define CLIENT_PORT 1234
+#define CLIENT_PORT 12344
 
 char filename[100];
 char buff[1024];
