@@ -7,6 +7,7 @@
 
 
 int passiveTCP();
+int RecvFile(int fd);
 
 
 #endif

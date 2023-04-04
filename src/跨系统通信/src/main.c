@@ -13,6 +13,7 @@ int main()
         return -1;
     }
     printf("create socket success!\n");
+    RecvFile(fd);
     
 
 

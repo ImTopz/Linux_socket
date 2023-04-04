@@ -21,10 +21,32 @@ int passiveTCP()
     return fd;
 }
 
-int RecvFile(){
+int RecvFile(fd){
     char filename[100];
-    char buff[BUFFSIZE];
-    
+    char buffer[BUFFSIZE];
+    struct sockaddr_in _addr;
+    int _fd = accept(fd,(struct sockaddr*)&_addr,(socklen_t*)sizeof(_addr));
+    if(_fd<0){
+        printf("Error!\n");
+        return -2;
+        }
+
+    while(1){
+      
+        printf("connect success!\n");
+        recv(_fd,filename,sizeof(filename),0);
+        FILE *fp = fopen(filename,"w");
+        printf("start transport!\n");
+        int t;
+        while ((t = recv(_fd, buffer, BUFFSIZE, 0)) > 0) 
+        { fwrite(buffer, sizeof(char), t, fp);}
+        printf("transport finish\n");
+        fclose(fp);
+
+    }
+    close(_fd);
+    return 0;
+
 }
 
 
